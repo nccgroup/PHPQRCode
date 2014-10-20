@@ -3,6 +3,10 @@
  * QRcode.php
  *
  * Created by arielferrandini
+ * 
+ * Modified by andy@burtonws.co.uk, August 2014.
+ * QRcode::png() added header argument to optionally supress header output
+ * 
  */
 
 namespace PHPQRCode;
@@ -136,10 +140,10 @@ class QRcode {
     }
 
     //----------------------------------------------------------------------
-    public static function png($text, $outfile = false, $level = Constants::QR_ECLEVEL_L, $size = 3, $margin = 4, $saveandprint=false)
+    public static function png($text, $outfile = false, $level = Constants::QR_ECLEVEL_L, $size = 3, $margin = 4, $saveandprint = false, $header = TRUE)
     {
         $enc = QRencode::factory($level, $size, $margin);
-        return $enc->encodePNG($text, $outfile, $saveandprint);
+        return $enc->encodePNG($text, $outfile, $saveandprint, $header);
     }
 
     //----------------------------------------------------------------------

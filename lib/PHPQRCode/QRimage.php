@@ -20,6 +20,10 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ * 
+ * Modified by andy@burtonws.co.uk, August 2014.
+ * QRimage::png() added header argument to optionally supress header output
+ * 
  */
 
 namespace PHPQRCode;
@@ -27,17 +31,21 @@ namespace PHPQRCode;
 class QRimage {
 
     //----------------------------------------------------------------------
-    public static function png($frame, $filename = false, $pixelPerPoint = 4, $outerFrame = 4,$saveandprint=FALSE)
+    public static function png($frame, $filename = false, $pixelPerPoint = 4, $outerFrame = 4,$saveandprint = FALSE, $header = TRUE)
     {
         $image = self::image($frame, $pixelPerPoint, $outerFrame);
 
         if ($filename === false) {
-            Header("Content-type: image/png");
+			if ($header) {
+				Header("Content-type: image/png");
+			}
             ImagePng($image);
         } else {
             if($saveandprint===TRUE){
                 ImagePng($image, $filename);
-                header("Content-type: image/png");
+                if ($header) {
+					Header("Content-type: image/png");
+				}
                 ImagePng($image);
             }else{
                 ImagePng($image, $filename);

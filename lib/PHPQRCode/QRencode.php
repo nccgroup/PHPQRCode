@@ -23,6 +23,10 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ * 
+ * Modified by andy@burtonws.co.uk, August 2014.
+ * QRencode::encodePNG() added header argument
+ * 
  */
 
 namespace PHPQRCode;
@@ -113,7 +117,7 @@ class QRencode {
     }
 
     //----------------------------------------------------------------------
-    public function encodePNG($intext, $outfile = false,$saveandprint=false)
+    public function encodePNG($intext, $outfile = false,$saveandprint=false, $header = TRUE)
     {
         try {
             ob_start();
@@ -126,7 +130,7 @@ class QRencode {
 
             $maxSize = (int)(Constants::QR_PNG_MAXIMUM_SIZE / (count($tab)+2*$this->margin));
 
-            QRimage::png($tab, $outfile, min(max(1, $this->size), $maxSize), $this->margin,$saveandprint);
+            QRimage::png($tab, $outfile, min(max(1, $this->size), $maxSize), $this->margin, $saveandprint, $header);
         } catch (Exception $e) {
             echo $e->getMessage();
             die();
